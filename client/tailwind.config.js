@@ -5,8 +5,10 @@ export default {
   theme: {
     extend: {
       colors: {
-        'primary_green': '#6ecb96',
-        'primary_pink': '#ff8194' 
+        'main': '#f8fafc',
+      },
+      boxShadow: {
+        'box': 'rgba(0, 0, 0, 0.35) 0px 5px 15px',
       }
     },
   },

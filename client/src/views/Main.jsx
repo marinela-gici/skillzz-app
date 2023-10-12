@@ -1,14 +1,14 @@
 import React from "react";
-import Navbar from "../components/Navbar";
 import HeroSection from "../components/HeroSection";
+import LatestJobs from "../components/LatestJobs";
 
 const Main = () => {
-    return (
-        <>
-            <HeroSection />
-            
-        </>
-    )
-}
+  return (
+    <>
+      <HeroSection />
+      <LatestJobs />
+    </>
+  );
+};
 
 export default Main;
