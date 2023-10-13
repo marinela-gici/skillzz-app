@@ -21,12 +21,13 @@ const JobSchema = new mongoose.Schema(
     salary: {
       type: Number,
       required: [true, "Salary is required"],
-      min: [1, 'Salary must be greater than 1']
+      min: [1, "Salary must be greater than 1"],
     },
     description: {
       type: String,
       required: [true, "Description is required"],
     },
+    applications: [{ type: mongoose.Schema.Types.ObjectId, ref: "Application" }],
   },
   { timestamps: true }
 );

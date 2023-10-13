@@ -11,6 +11,7 @@ require('dotenv').config();
 require('./config/mongoose.config');  
 require('./routes/company.routes')(app);
 require('./routes/job.routes')(app);
+require('./routes/application.routes')(app);
 app.listen(8000, () => {
     console.log("Listening at Port 8000")
 })

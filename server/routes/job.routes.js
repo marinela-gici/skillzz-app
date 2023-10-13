@@ -1,5 +1,6 @@
 const JobController = require('../controllers/job.controller');
 const { authenticate } = require('../config/jwt.config');
+const ApplicationController = require("../controllers/application.controller");
 
 module.exports = (app) => {
     app.post("/api/jobs", JobController.createJob);

@@ -5,7 +5,6 @@ import Button from "./Button";
 
 const HeroSection = () => {
   const navigate = useNavigate();
-  // const scollToRef = useRef();
 
   return (
     <div className="container mx-auto px-8">

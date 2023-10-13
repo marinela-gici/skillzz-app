@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate, useParams, Link } from "react-router-dom";
 import moment from "moment";
+import Button from "./Button.jsx";
 
 const JobDetailsContent = (props) => {
   const { job } = props;
@@ -46,7 +47,7 @@ const JobDetailsContent = (props) => {
           </svg>
           <p className="capitalize">${job.salary}</p>
         </div>
-        {/* <p className="capitalize">{job.experience}</p> */}
+        <button className="dark:bg-rose-400 dark:hover:bg-rose-500 bg-emerald-400 hover:bg-emerald-600 rounded-md px-6 py-3 text-lg font-semibold text-white shadow-sm mr-2.5 mt-4">Apply now</button>
       </div>
     </>
   );
