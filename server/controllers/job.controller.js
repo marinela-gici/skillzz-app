@@ -10,7 +10,7 @@ module.exports = {
   getAllJobs: (request, response) => {
     const limit = request.query.limit ?? 10;
     const offset = request.query.offset ?? 0;
-    Job.find({}).skip(offset).limit(limit).sort({createdAt: 'desc'})
+    Job.find({}).populate('applications').skip(offset).limit(limit).sort({createdAt: 'desc'})
       .then((jobs) => {
         console.log(jobs);
         response.json(jobs);
@@ -23,6 +23,7 @@ module.exports = {
   
   getOneJob: (request, response) => {
     Job.findOne({ _id: request.params.id })
+        .populate('applications')
       .then((job) => {
         console.log(job);
         response.json(job);

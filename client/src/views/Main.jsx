@@ -1,16 +1,19 @@
 import React from "react";
 import HeroSection from "../components/HeroSection";
 import LatestJobs from "../components/LatestJobs";
-import ApplicationModal from "../components/ApplicationModal.jsx";
+import ShowLatestJobs from "../components/ShowLatestJobs.jsx";
+import Contact from "../components/Contact.jsx";
+import Footer from "../components/Footer.jsx";
 
 const Main = () => {
-  return (
-    <>
-      <HeroSection />
-      <LatestJobs />
-        <ApplicationModal />
-    </>
-  );
+    return (
+        <>
+            <HeroSection />
+            <ShowLatestJobs />
+            <Contact />
+            <Footer />
+        </>
+    );
 };
 
 export default Main;

@@ -10,7 +10,7 @@ const Button = (props) => {
           (props.background === "pink"
             ? "bg-rose-400 hover:bg-rose-500"
             : "bg-emerald-400 hover:bg-emerald-600") +
-          " rounded-md px-6 py-3 text-lg font-semibold text-white shadow-sm mr-2.5"
+          " rounded-md md:px-6 px-4 md:py-3 py-2 text-lg font-semibold text-white shadow-sm mr-2.5"
         }
       >
         {props.value}

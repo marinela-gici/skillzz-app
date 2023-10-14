@@ -7,6 +7,7 @@ const JobForm = () => {
   const [title, setTitle] = useState("");
   const [category, setCategory] = useState("");
   const [experience, setExperience] = useState("");
+  const [employmentType, setEmpploymentType] = useState("");
   const [location, setLocation] = useState("");
   const [description, setDescription] = useState("");
   const [salary, setSalary] = useState("");
@@ -22,6 +23,7 @@ const JobForm = () => {
         title,
         category,
         experience,
+        employmentType,
         location,
         description,
         salary,
@@ -43,8 +45,7 @@ const JobForm = () => {
       axios
         .get(
           `https://api.geoapify.com/v1/geocode/autocomplete?text=${location}&lang=en&limit=10&type=country&format=json&apiKey=3a93fd6a6e544c119dccea860dbd08bc`
-          // `https://api.geoapify.com/v1/geocode/autocomplete?text=${location}&format=json&apiKey=3a93fd6a6e544c119dccea860dbd08bc`
-        )
+         )
         .then((response) => {
           console.log(response.data);
           setSearchLocations(response.data.results);
@@ -150,8 +151,35 @@ const JobForm = () => {
           ) : (
             ""
           )}
+        </div><div className="relative z-0 w-full my-6 group">
+          <select
+            onChange={(e) => setEmpploymentType(e.target.value)}
+            className="block py-2.5 px-0 w-full text-sm text-gray-500 bg-transparent border-0 border-b-2 border-emerald-400 appearance-none dark:text-gray-500 dark:border-emerald-400 dark:focus:border-emerald-400 focus:outline-none focus:ring-0 focus:border-emerald-400 peer"
+            id="employment-type"
+          >
+            <option disabled="disabled" selected={true} defaultValue value="">
+              Employment Type
+            </option>
+            <option className="text-neutral-950" value="Part time">
+              Part time
+            </option>
+            <option className="text-neutral-950" value="Full time">
+              Full time
+            </option>
+            <option className="text-neutral-950" value="Freelancer">
+              Freelancer
+            </option>
+          </select>
+
+          {validation.experience ? (
+            <p className="text-sm text-red-600 font-bold">
+              {validation.experience.message}
+            </p>
+          ) : (
+            ""
+          )}
         </div>
-        <div className="relative z-0 w-full my-6 z-10">
+        <div className="relative w-full my-6 z-10">
           <div className="group">
             <input
               type="text"

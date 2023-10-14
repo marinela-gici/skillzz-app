@@ -69,12 +69,12 @@ const JobsList = () => {
         </div>
         {activeJob && (
           <div className="hidden md:block md:w-3/5 p-5">
-            <div className="sticky top-2.5 p-6 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 dark:text-white">
+            <div className="sticky z-10 top-4 p-6 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 dark:text-white">
               <JobDetailsContent
                 onClick={() => setActiveJob(null)}
                 value={
                   <svg
-                    class="w-4 h-4 text-gray-800 dark:text-white"
+                    className="w-4 h-4 text-gray-800 dark:text-white"
                     aria-hidden="true"
                     xmlns="http://www.w3.org/2000/svg"
                     fill="none"

@@ -8,6 +8,8 @@ import Login from "./components/Login";
 import JobForm from "./components/JobForm";
 import JobsList from "./components/JobsList";
 import JobDetails from "./components/JobDetails";
+import { ToastContainer } from 'react-toastify';
+import "react-toastify/dist/ReactToastify.css";
 
 function App() {
   const [darkMode, setDarkMode] = useState(
@@ -28,7 +30,19 @@ function App() {
 
   return (
     <div className={darkMode ? "dark" : ""}>
-      <div className="bg-main dark:bg-gray-900">
+      <ToastContainer
+          position="top-center"
+          autoClose={500}
+          hideProgressBar={false}
+          newestOnTop={false}
+          closeOnClick={false}
+          rtl={false}
+          pauseOnFocusLoss
+          draggable
+          pauseOnHover
+          theme="colored"
+      />
+      <div className="bg-main dark:bg-gray-900 py-4">
         <BrowserRouter>
           <Navbar darkMode={darkMode} toggleDarkMode={toggleDarkMode} />
           <Routes>
