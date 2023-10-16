@@ -1,8 +1,6 @@
 import React, {useEffect, useState} from "react";
 import axios from "axios";
-import Button from "./Button";
 import {useNavigate, Link} from "react-router-dom";
-import moment from "moment";
 
 const ShowLatestJobs = () => {
     const [jobs, setJobs] = useState([]);
@@ -35,7 +33,8 @@ const ShowLatestJobs = () => {
             <div>
                 {jobs.length > 0 && jobs.map((job, index) => {
                     return (
-                        <div key={index} className="flex flex-wrap items-center container pt-4 border hover:border-emerald-500 dark:hover:border-rose-400 dark:bg-gray-800 dark:text-white rounded-md my-8 bg-white overflow-hidden hover:-translate-y-0.5 transition ease-in-out delay-300">
+                        <div key={index}
+                             className="flex flex-wrap items-center container pt-4 border hover:border-emerald-500 dark:hover:border-rose-400 dark:bg-gray-800 dark:text-white rounded-md my-8 bg-white overflow-hidden hover:-translate-y-0.5 transition ease-in-out delay-300">
                             <div className="w-full flex justify-center items-center md:w-1/5 mb-4">
                                 <img src='https://myrathemes.com/jobsila/images/featured-job/img-1.png' />
                             </div>
@@ -65,7 +64,7 @@ const ShowLatestJobs = () => {
                                 ${job.salary}
                             </div>
                             <div className="w-full flex justify-center items-center md:w-1/5 mb-4">
-                               test {job.employmentType}
+                                test {job.employmentType}
                             </div>
                             <div className="w-full flex justify-between items-center bg-main dark:bg-gray-900 py-4 px-6">
                                 <p>Experience: {job.experience}</p>
@@ -88,11 +87,11 @@ const ShowLatestJobs = () => {
                 })}
             </div>
             <div className="flex justify-center my-6">
-                <Button
-                    value="Show All Jobs"
-                    type="button"
-                    onClick={() => navigate("/jobs")}
-                />
+                <button
+                    onClick={() => navigate('/jobs')}
+                    className="dark:bg-rose-400 dark:hover:bg-rose-500 bg-emerald-400 hover:bg-emerald-600 rounded-md md:px-6 px-4 md:py-3 py-2 text-lg font-semibold text-white shadow-sm">
+                    Show All Jobs
+                </button>
             </div>
         </div>
     );

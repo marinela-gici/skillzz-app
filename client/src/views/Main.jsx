@@ -4,6 +4,7 @@ import LatestJobs from "../components/LatestJobs";
 import ShowLatestJobs from "../components/ShowLatestJobs.jsx";
 import Contact from "../components/Contact.jsx";
 import Footer from "../components/Footer.jsx";
+import Jobs from "../components/Company/Jobs.jsx";
 
 const Main = () => {
     return (

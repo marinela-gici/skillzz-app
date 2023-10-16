@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import {useState, useEffect} from "react";
 import "./App.css";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Navbar from "./components/Navbar";
@@ -10,6 +10,8 @@ import JobsList from "./components/JobsList";
 import JobDetails from "./components/JobDetails";
 import { ToastContainer } from 'react-toastify';
 import "react-toastify/dist/ReactToastify.css";
+import Jobs from "./components/Company/Jobs.jsx";
+import ScrollToTop from "./components/ScrollToTop.jsx";
 
 function App() {
   const [darkMode, setDarkMode] = useState(
@@ -28,8 +30,17 @@ function App() {
     }
   }, [darkMode]);
 
+  const onScroll = (e) => {
+    const { offsetHeight, scrollTop, scrollHeight } = e.target;
+
+    if (offsetHeight + scrollTop + 20 >= scrollHeight) {
+        const shouldUpdateEvent = new CustomEvent("shouldUpdateList", {});
+        document.dispatchEvent(shouldUpdateEvent);
+    }
+  }
+
   return (
-    <div className={darkMode ? "dark" : ""}>
+    <div className={(darkMode ? "dark" : "") + " overflow-y-auto h-screen"} onScroll={onScroll} >
       <ToastContainer
           position="top-center"
           autoClose={500}
@@ -52,7 +63,9 @@ function App() {
             <Route exact path="/jobs/create" element={<JobForm />}></Route>
             <Route exact path="/jobs" element={<JobsList />}></Route>
             <Route exact path="/jobs/:id" element={<JobDetails />}></Route>
+            <Route exact path="/dashboard" element={<Jobs />}></Route>
           </Routes>
+          <ScrollToTop />
         </BrowserRouter>
       </div>
     </div>

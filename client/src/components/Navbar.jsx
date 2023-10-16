@@ -50,7 +50,7 @@ const Navbar = (props) => {
                       <Link
                         key={item.name}
                         to={item.href}
-                        className="dark:text-white text-black hover:bg-rose-400 hover:text-white rounded-md px-3 py-2 text-lg font-large"
+                        className="dark:text-white text-black dark:hover:bg-rose-400 dark:hover:text-white hover:bg-emerald-500 hover:text-white rounded-md px-3 py-2 text-lg font-large"
                       >
                         {item.name}
                       </Link>

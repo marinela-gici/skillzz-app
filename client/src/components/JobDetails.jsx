@@ -21,7 +21,6 @@ const JobDetails = () => {
     }, []);
 
     return (
-
         <div className="min-h-[calc(100vh-64px)] p-8">
             <div className="md:w-1/2 w-full mx-auto p-12 shadow-box rounded-md dark:dark:bg-gray-800 dark:text-white">
                 <Link className='flex items-center hover:underline mb-4' to={'/jobs'}>

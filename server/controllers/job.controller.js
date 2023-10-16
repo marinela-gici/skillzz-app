@@ -9,8 +9,8 @@ module.exports = {
 
   getAllJobs: (request, response) => {
     const limit = request.query.limit ?? 10;
-    const offset = request.query.offset ?? 0;
-    Job.find({}).populate('applications').skip(offset).limit(limit).sort({createdAt: 'desc'})
+    const skip = request.query.skip ?? 0;
+    Job.find({}).populate('applications').skip(skip).limit(limit).sort({createdAt: 'desc'})
       .then((jobs) => {
         console.log(jobs);
         response.json(jobs);
