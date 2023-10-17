@@ -2,7 +2,7 @@ const Job = require("../models/job.model");
 
 module.exports = {
   createJob: (req, res) => {
-    Job.create(req.body)
+    Job.create({...req.body, company: req.user._id})
       .then((saveResult) => res.json(saveResult))
       .catch((err) => res.status(400).json(err));
   },
@@ -12,13 +12,28 @@ module.exports = {
     const skip = request.query.skip ?? 0;
     Job.find({}).populate('applications').skip(skip).limit(limit).sort({createdAt: 'desc'})
       .then((jobs) => {
-        console.log(jobs);
+        // console.log(jobs);
         response.json(jobs);
       })
       .catch((err) => {
         console.log(err);
         response.json(err);
       });
+  },
+
+  getCompanyJobs: (request, response) => {
+    const limit = request.query.limit ?? 10;
+    const skip = request.query.skip ?? 0;
+
+    Job.find({company: request.user._id}).populate('applications').skip(skip).limit(limit).sort({createdAt: 'desc'})
+        .then((jobs) => {
+          console.log(jobs);
+          response.json(jobs);
+        })
+        .catch((err) => {
+          console.log(err);
+          response.json(err);
+        });
   },
   
   getOneJob: (request, response) => {

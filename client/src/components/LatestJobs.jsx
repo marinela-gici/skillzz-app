@@ -36,7 +36,7 @@ const LatestJobs = () => {
   return (
     <div className="container mx-auto px-5">
       <p className="text-4xl md:text-8xl text-center dark:text-white my-8">
-        Latest <span className="dark:text-emerald-400 text-rose-400">Jobs</span>
+        Latest <span className="dark:text-emerald-400 text-rose-400">Dashboard</span>
       </p>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-7">
         {jobs.length > 0 &&
@@ -70,7 +70,7 @@ const LatestJobs = () => {
       </div>
       <div className="flex justify-center my-6">
         <Button
-          value="Show All Jobs"
+          value="Show All Dashboard"
           type="button"
           onClick={() => navigate("/jobs")}
         />

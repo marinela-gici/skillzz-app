@@ -1,10 +1,8 @@
 import React from "react";
 import HeroSection from "../components/HeroSection";
-import LatestJobs from "../components/LatestJobs";
 import ShowLatestJobs from "../components/ShowLatestJobs.jsx";
 import Contact from "../components/Contact.jsx";
-import Footer from "../components/Footer.jsx";
-import Jobs from "../components/Company/Jobs.jsx";
+import Footer from "../components/Footer.jsx";;
 
 const Main = () => {
     return (
@@ -13,6 +11,7 @@ const Main = () => {
             <ShowLatestJobs />
             <Contact />
             <Footer />
+
         </>
     );
 };

@@ -30,7 +30,7 @@ const Register = () => {
       )
       .then((response) => {
         console.log(response);
-        navigate('/jobs/create');
+        navigate('/dashboard/profile');
       })
       .catch((err) => {
         console.log(err);

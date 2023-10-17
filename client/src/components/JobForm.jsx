@@ -27,7 +27,7 @@ const JobForm = () => {
         location,
         description,
         salary,
-      })
+      }, {withCredentials: true})
       .then((res) => {
         console.log(res);
         navigate("/jobs");

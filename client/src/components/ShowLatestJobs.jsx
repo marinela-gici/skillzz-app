@@ -64,7 +64,7 @@ const ShowLatestJobs = () => {
                                 ${job.salary}
                             </div>
                             <div className="w-full flex justify-center items-center md:w-1/5 mb-4">
-                                test {job.employmentType}
+                                {job.employmentType}
                             </div>
                             <div className="w-full flex justify-between items-center bg-main dark:bg-gray-900 py-4 px-6">
                                 <p>Experience: {job.experience}</p>
