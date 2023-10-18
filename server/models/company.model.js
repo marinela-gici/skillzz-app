@@ -1,5 +1,8 @@
 const mongoose = require("mongoose");
 const bcrypt = require("bcrypt");
+const fs = require("fs");
+const path = require("path");
+const UPLOADS_DIR = path.join(__dirname, '..', 'uploads');
 
 const CompanySchema = new mongoose.Schema(
     {
@@ -24,8 +27,23 @@ const CompanySchema = new mongoose.Schema(
             required: [true, "Password is required"],
             minlength: [8, "Password must be 8 characters or longer"],
         },
+        logo: {
+            type: String,
+            get: function (filename) {
+                if(fs.existsSync(path.join(UPLOADS_DIR, filename))) {
+                    return `http://localhost:8000/images/${filename}`
+                } else {
+                    return "";
+                }
+
+            }
+        }
     },
-    {timestamps: true}
+    {
+        timestamps: true,
+        toObject: {getters: true, setters: true},
+        toJSON: {getters: true, setters: true}
+    }
 );
 
 CompanySchema.virtual("confirmPassword")

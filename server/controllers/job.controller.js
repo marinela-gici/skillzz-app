@@ -39,7 +39,7 @@ module.exports = {
 
     updateJob: (request, response) => {
         Job.findOneAndUpdate({_id: request.params.id}, request.body, {
-            new: true,
+            new: true, runValidators: true
         })
             .then((updatedJob) => response.json(updatedJob))
             .catch((err) => response.status(400).json(err));

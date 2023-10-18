@@ -7,13 +7,12 @@ import { useNavigate, Link } from "react-router-dom";
 
 const navigation = [
   { name: "Home", href: "/", current: true },
-  // { name: "Category", href: "#", current: false },
   { name: "Post a Job", href: "#", current: false },
   { name: "Contact", href: "#", current: false },
 ];
 
 const Navbar = (props) => {
-  const { darkMode, toggleDarkMode } = props;
+  const { company, darkMode, toggleDarkMode } = props;
   const navigate = useNavigate();
 
   return (
@@ -60,7 +59,9 @@ const Navbar = (props) => {
               </div>
               <div className="absolute inset-y-0 right-0 flex items-center pr-2 md:static md:inset-auto md:ml-6 md:pr-0">
                 <Menu as="div" className="relative ml-3 flex items-center">
-                  <Button value="Post a Job" onClick={() => navigate('/register')} />
+                  {company && <Button value="Go to dashboard" onClick={() => navigate('/dashboard')} />}
+                  {!company && <Button value="Post a Job" onClick={() => navigate('/register')} />}
+
                   <Button value="Find a Job" background="pink" onClick={() => navigate('/jobs')} />
                   <DarkMode
                     darkMode={darkMode}

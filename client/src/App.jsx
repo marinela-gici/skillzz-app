@@ -1,29 +1,26 @@
 import {useState, useEffect} from "react";
 import "./App.css";
 import {BrowserRouter, Routes, Route} from "react-router-dom";
-import Navbar from "./components/Navbar";
 import Main from "./views/Main";
 import Register from "./components/Register";
 import Login from "./components/Login";
 import JobForm from "./components/Company/JobForm.jsx";
 import JobsList from "./components/JobsList";
 import JobDetails from "./components/JobDetails";
-import {ToastContainer} from 'react-toastify';
-import "react-toastify/dist/ReactToastify.css";
 import ScrollToTop from "./components/ScrollToTop.jsx";
 import UpdateProfile from "./components/Company/UpdateProfile.jsx";
 import ChangePassword from "./components/Company/ChangePassword.jsx";
-import ProtectedRoutes from "./components/ProtectedRoutes.jsx";
 import PublicLayout from "./views/PublicLayout.jsx";
-import Sidebar from "./components/Company/Sidebar.jsx";
 import CompanyJobs from "./components/Company/CompanyJobs.jsx";
 import ProtectedLayout from "./views/ProtectedLayout.jsx";
 import Dashboard from "./components/Company/Dashboard.jsx";
 import JobApplications from "./components/Company/JobApplications.jsx"
 import EditJob from "./components/Company/EditJob.jsx";
+import axios from "axios";
+import {ToastContainer} from 'react-toastify';
+import "react-toastify/dist/ReactToastify.css";
 
 function App() {
-    const [user, setUser] = useState(null);
     const [darkMode, setDarkMode] = useState(
         localStorage.getItem("darkMode") === "1" ? 1 : 0
     );

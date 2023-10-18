@@ -62,7 +62,7 @@ const EditJob = () => {
                     </h2>
                     <div className="relative z-0 w-full my-6 group">
                         <input
-                            defaultValue={title}
+                            value={title}
                             type="text"
                             id="title"
                             className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-emerald-400 appearance-none dark:text-white dark:border-emerald-400 dark:focus:border-emerald-400 focus:outline-none focus:ring-0 focus:border-emerald-400 peer"
@@ -85,7 +85,7 @@ const EditJob = () => {
                     </div>
                     <div className="relative z-0 w-full my-6 group">
                         <select
-                            defaultValue={category}
+                            value={category}
                             onChange={(e) => setCategory(e.target.value)}
                             className="block py-2.5 px-0 w-full text-sm dark:text-white text-gray-500 bg-transparent border-0 border-b-2 border-emerald-400 appearance-none dark:border-emerald-400 dark:focus:border-emerald-400 focus:outline-none focus:ring-0 focus:border-emerald-400 peer"
                             id="category"

@@ -44,7 +44,7 @@ const UpdateProfile = () => {
             <div className="min-h-[calc(100vh-64px)] p-8">
                 <form
                     onSubmit={updateProfile}
-                    className="sm:w-1/2 w-full mx-auto p-12 shadow-box rounded-md dark:bg-gray-800"
+                    className="lg:w-1/2 w-full mx-auto p-12 shadow-box rounded-md dark:bg-gray-800"
                 >
                     <h2 className="center text-4xl font-bold dark:text-white text-center">
                         Update profile

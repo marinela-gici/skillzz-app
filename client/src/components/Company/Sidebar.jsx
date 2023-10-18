@@ -2,23 +2,24 @@ import React, {useEffect, useState} from 'react';
 import DarkMode from "../DarkMode.jsx";
 import {Link, useNavigate} from "react-router-dom";
 import axios from 'axios';
+import defaultLogo from '../../assets/default-logo.svg';
 
 const Sidebar = (props) => {
-    const [company, setCompany] = useState({});
+    // const [company, setCompany] = useState({});
     const [isOpen, setIsOpen] = useState(false);
     const [isProfileOpen, setIsProfileOpen] = useState(false);
-    const {darkMode, toggleDarkMode, children} = props;
+    const {company, darkMode, toggleDarkMode, children} = props;
     const navigate = useNavigate();
 
-    useEffect(() => {
-        axios
-            .get('http://localhost:8000/api/dashboard/profile', {withCredentials: true})
-            .then(res => {
-                console.log(res.data);
-                setCompany(res.data);
-            })
-            .catch(err => console.log(err))
-    }, []);
+    // useEffect(() => {
+    //     axios
+    //         .get('http://localhost:8000/api/dashboard/profile', {withCredentials: true})
+    //         .then(res => {
+    //             console.log(res.data);
+    //             setCompany(res.data);
+    //         })
+    //         .catch(err => console.log(err))
+    // }, []);
 
     const logout = () => {
         axios
@@ -51,23 +52,28 @@ const Sidebar = (props) => {
                                           d="M2 4.75A.75.75 0 012.75 4h14.5a.75.75 0 010 1.5H2.75A.75.75 0 012 4.75zm0 10.5a.75.75 0 01.75-.75h7.5a.75.75 0 010 1.5h-7.5a.75.75 0 01-.75-.75zM2 10a.75.75 0 01.75-.75h14.5a.75.75 0 010 1.5H2.75A.75.75 0 012 10z"></path>
                                 </svg>
                             </button>
-                            <a href="#" className="flex ml-2 md:mr-24">
+                            <Link to='/dashboard' className="flex ml-2 md:mr-24">
                                 <span className="self-center text-xl font-semibold sm:text-2xl whitespace-nowrap dark:text-white">
                                     {company.name}
                                 </span>
-                            </a>
+                            </Link>
                         </div>
                         <div className="flex items-center">
                             <div className="flex items-center ml-3">
-                                <div className="relative">
+                                <div className="relative inline-flex">
+                                    <DarkMode
+                                        darkMode={darkMode}
+                                        toggleDarkMode={toggleDarkMode}
+                                    />
                                     <button onClick={() => setIsProfileOpen(prev => !prev)}
                                             type="button"
                                             className="flex text-sm bg-gray-800 rounded-full focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600"
                                             aria-expanded="false"
+                                            aria-expanded="false"
                                             data-dropdown-toggle="dropdown-user">
                                         <span className="sr-only">Open user menu</span>
                                         <img className="w-8 h-8 rounded-full"
-                                             src="https://flowbite.com/docs/images/people/profile-picture-5.jpg"
+                                             src={company.logo ? company.logo : defaultLogo }
                                              alt="user photo" />
                                     </button>
                                 </div>
@@ -97,12 +103,6 @@ const Sidebar = (props) => {
                                             <button onClick={logout}
                                                className="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-white"
                                                role="menuitem">Log out</button>
-                                        </li>
-                                        <li className='ml-[40%]'>
-                                            <DarkMode
-                                                darkMode={darkMode}
-                                                toggleDarkMode={toggleDarkMode}
-                                            />
                                         </li>
                                     </ul>
                                 </div>
