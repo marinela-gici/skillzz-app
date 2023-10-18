@@ -2,7 +2,7 @@ import React from "react";
 import {useNavigate} from 'react-router-dom'
 import heroImg from "../assets/hero-img.png";
 
-const HeroSection = () => {
+const HeroSection = ({handleClickScroll}) => {
     const navigate = useNavigate();
 
     return (
@@ -14,9 +14,8 @@ const HeroSection = () => {
                         <span className="dark:text-emerald-400 text-rose-400">Job</span>
                     </p>
                     <p className="py-12">Find Job, Employment and Career Opportunities</p>
-                    {/*<Button value="View Latest Jobs" onClick={() => navigate('/')} />*/}
                     <button
-                        onClick={() => navigate('/')}
+                        onClick={handleClickScroll}
                         className="dark:bg-rose-400 dark:hover:bg-rose-500 bg-emerald-400 hover:bg-emerald-600 rounded-md md:px-6 px-4 md:py-3 py-2 text-lg font-semibold text-white shadow-sm">
                         View latest jobs
                     </button>

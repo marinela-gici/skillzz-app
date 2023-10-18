@@ -2,7 +2,7 @@ import React, {useEffect, useState} from "react";
 import axios from "axios";
 import {useNavigate, Link} from "react-router-dom";
 
-const ShowLatestJobs = () => {
+const ShowLatestJobs = ({scrollRef}) => {
     const [jobs, setJobs] = useState([]);
     const navigate = useNavigate();
 
@@ -26,8 +26,8 @@ const ShowLatestJobs = () => {
 
 
     return (
-        <div className="container max-w-[80%] mx-auto px-5">
-            <p className="text-4xl md:text-8xl text-center dark:text-white my-8">
+        <div ref={scrollRef} className="container max-w-[80%] mx-auto px-5">
+            <p className="text-4xl md:text-8xl text-center dark:text-white py-8">
                 Latest <span className="text-emerald-400 dark:text-rose-400">Jobs</span>
             </p>
             <div>
