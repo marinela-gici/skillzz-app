@@ -1,13 +1,15 @@
 import React from "react";
+import Sidebar from "../components/Company/Sidebar.jsx";
 
-const PublicLayout = (props) => {
+const ProtectedLayout = (props) => {
     const {darkMode, toggleDarkMode, children} = props;
     return (
         <>
-            <Navbar darkMode={darkMode} toggleDarkMode={toggleDarkMode} />
-            {children}
+            <Sidebar darkMode={darkMode} toggleDarkMode={toggleDarkMode}>
+                {children}
+            </Sidebar>
         </>
     )
 }
 
-export default PublicLayout;
+export default ProtectedLayout;

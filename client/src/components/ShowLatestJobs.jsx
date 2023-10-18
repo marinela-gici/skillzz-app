@@ -66,9 +66,9 @@ const ShowLatestJobs = () => {
                             <div className="w-full flex justify-center items-center md:w-1/5 mb-4">
                                 {job.employmentType}
                             </div>
-                            <div className="w-full flex justify-between items-center bg-main dark:bg-gray-900 py-4 px-6">
+                            <div className="w-full block md:flex justify-between items-center bg-main dark:bg-gray-900 py-4 px-6">
                                 <p>Experience: {job.experience}</p>
-                                <Link to={`/jobs/${job._id}`} className="flex items-center">View more
+                                <Link to={`/jobs/${job._id}`} className="flex items-center my-3 md:my-0">View more
                                     <svg xmlns="http://www.w3.org/2000/svg"
                                          fill="none"
                                          viewBox="0 0 24 24"

@@ -3,7 +3,7 @@ import axios from 'axios';
 import {useNavigate} from "react-router-dom";
 import Button from "../Button.jsx";
 
-const ProfilePage = () => {
+const UpdateProfile = () => {
     const [name, setName] = useState("");
     const [vat, setVat] = useState("");
     const [email, setEmail] = useState("");
@@ -44,7 +44,7 @@ const ProfilePage = () => {
             <div className="min-h-[calc(100vh-64px)] p-8">
                 <form
                     onSubmit={updateProfile}
-                    className="md:w-1/3 sm:w-1/2 w-full mx-auto p-12 shadow-box rounded-md dark:bg-gray-800"
+                    className="sm:w-1/2 w-full mx-auto p-12 shadow-box rounded-md dark:bg-gray-800"
                 >
                     <h2 className="center text-4xl font-bold dark:text-white text-center">
                         Update profile
@@ -116,4 +116,4 @@ const ProfilePage = () => {
     )
 }
 
-export default ProfilePage
+export default UpdateProfile

@@ -24,7 +24,7 @@ const Register = () => {
       )
       .then((response) => {
         console.log(response);
-        navigate("/dashboard/profile");
+        navigate("/dashboard");
       })
       .catch((err) => {
         console.log(err);

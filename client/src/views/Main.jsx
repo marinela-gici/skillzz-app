@@ -11,7 +11,6 @@ const Main = () => {
             <ShowLatestJobs />
             <Contact />
             <Footer />
-
         </>
     );
 };

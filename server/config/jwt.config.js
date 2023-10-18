@@ -9,7 +9,6 @@ module.exports.authenticate = (req, res, next) => {
         const token = req.cookies?.companytoken;
         console.log(token)
         if (!token) {
-            console.log('tes')
             return res.status(401).json();
         }
 

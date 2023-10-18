@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import Button from "../components/Button";
+import Button from "../Button.jsx";
 import axios from "axios";
 
 const JobForm = () => {
   const [title, setTitle] = useState("");
   const [category, setCategory] = useState("");
   const [experience, setExperience] = useState("");
-  const [employmentType, setEmpploymentType] = useState("");
+  const [employmentType, setEmploymentType] = useState("");
   const [location, setLocation] = useState("");
   const [description, setDescription] = useState("");
   const [salary, setSalary] = useState("");
@@ -19,7 +19,7 @@ const JobForm = () => {
   const createJob = (e) => {
     e.preventDefault();
     axios
-      .post("http://localhost:8000/api/jobs", {
+      .post("http://localhost:8000/api/company/jobs ", {
         title,
         category,
         experience,
@@ -30,7 +30,7 @@ const JobForm = () => {
       }, {withCredentials: true})
       .then((res) => {
         console.log(res);
-        navigate("/jobs");
+        navigate("/dashboard/jobs");
       })
       .catch((err) => {
         console.log(err);
@@ -60,9 +60,9 @@ const JobForm = () => {
     <div className="min-h-[calc(100vh-64px)] p-8">
       <form
         onSubmit={createJob}
-        className="md:w-1/3 sm:w-1/2 w-full mx-auto p-12 shadow-box rounded-md dark:bg-gray-800"
+        className="lg:w-1/2 w-full mx-auto p-12 shadow-box rounded-md dark:bg-gray-800"
       >
-        <h2 className="center text-4xl font-bold dark:text-white text-center">
+        <h2 className="center text-3xl font-bold dark:text-white text-center">
           Create a Job
         </h2>
         <div className="relative z-0 w-full my-6 group">
@@ -153,7 +153,7 @@ const JobForm = () => {
           )}
         </div><div className="relative z-0 w-full my-6 group">
           <select
-            onChange={(e) => setEmpploymentType(e.target.value)}
+            onChange={(e) => setEmploymentType(e.target.value)}
             className="block py-2.5 px-0 w-full text-sm text-gray-500 bg-transparent border-0 border-b-2 border-emerald-400 appearance-none dark:text-gray-500 dark:border-emerald-400 dark:focus:border-emerald-400 focus:outline-none focus:ring-0 focus:border-emerald-400 peer"
             id="employment-type"
           >
@@ -251,9 +251,9 @@ const JobForm = () => {
           )}
         </div>
         <div className="relative z-0 w-full my-6 group">
-          <input
-            type="text"
+          <textarea
             id="description"
+            rows="4"
             className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-emerald-400 appearance-none dark:text-white dark:border-emerald-400 dark:focus:border-emerald-400 focus:outline-none focus:ring-0 focus:border-emerald-400 peer"
             placeholder=" "
             onChange={(e) => setDescription(e.target.value)}
@@ -273,12 +273,6 @@ const JobForm = () => {
           )}
         </div>
         <Button value="Create Job" type="submit" />
-        <p className="my-6 dark:text-white">
-          Already have an account?{" "}
-          <Link to={"/login"} className="text-blue-500 font-bold">
-            Login now
-          </Link>
-        </p>
       </form>
     </div>
   );
