@@ -30,12 +30,11 @@ const CompanySchema = new mongoose.Schema(
         logo: {
             type: String,
             get: function (filename) {
-                if(fs.existsSync(path.join(UPLOADS_DIR, filename))) {
+                if(filename && fs.existsSync(path.join(UPLOADS_DIR, filename))) {
                     return `http://localhost:8000/images/${filename}`
                 } else {
                     return "";
                 }
-
             }
         }
     },

@@ -1,20 +1,20 @@
-import React, { useState } from "react";
-import { Modal, Tooltip, Upload } from "antd";
+import React, {useState} from "react";
+import {Modal, Tooltip, Upload} from "antd";
 import {toast} from "react-toastify";
-
-// import { DeleteOutlined, EditOutlined, EyeOutlined, LoadingOutlined, PlusOutlined } from "@ant-design/icons";
-// import useNotification from "../hooks/NotificationHook.jsx";
+import loadingSpinner from '../assets/loading-spinner.svg';
+import plusIcon from '../assets/plus-icon.svg';
+import preview from '../assets/preview.svg';
+import close from '../assets/close.svg';
 
 const allowedImageTypes = ["image/jpeg", "image/jpg", "image/png"];
 
-const handleCustomRequest = ({ onSuccess, onError, file }) => {
+const handleCustomRequest = ({onSuccess}) => {
     setTimeout(() => {
         onSuccess("Ok");
     });
 };
 
 const ImageUpload = ({
-                         label,
                          imgUrl,
                          title,
                          loading,
@@ -30,7 +30,7 @@ const ImageUpload = ({
         const allowedSize = file.size / 1024 / 1024 < 0.5;
         const isAllowedFileType = allowedImageTypes.includes(file.type);
         if (!isAllowedFileType) {
-            toast.error('Invalid format. You can only upload pdf files.', {
+            toast.error('Invalid format. You can only upload jpg and png files.', {
                 position: "top-center",
                 autoClose: 1000,
                 hideProgressBar: true,
@@ -62,8 +62,8 @@ const ImageUpload = ({
 
     const uploadButton = (
         <div className="flex h-full w-full flex-col items-center justify-center">
-            <span className="mb-2">{loading ? <LoadingOutlined /> : <PlusOutlined />}</span>
-            <span className="mt-2">{label || 'Upload'}</span>
+            <span className="mb-2"><img src={loading ? loadingSpinner : plusIcon} alt="" /></span>
+            <span className="mt-2">Upload</span>
         </div>
     );
 
@@ -110,23 +110,11 @@ const ImageUpload = ({
                             background: "#000000",
                         }}
                     >
-                        <Tooltip title={t("common.preview")}>
-                            <EyeOutlined onClick={handlePreview} />
+                        <Tooltip title='Preview'>
+                            <img className='cursor-pointer mx-2 w-[25px] h-[25px]' src={preview} alt="" onClick={handlePreview} />
                         </Tooltip>
-                        <Tooltip title={t("common.edit")}>
-                            <Upload
-                                beforeUpload={beforeUpload}
-                                onChange={handleChange}
-                                showUploadList={false}
-                                customRequest={customRequest}
-                                className="cursor-pointer text-white"
-                                accept={allowedImageTypes.join(", ")}
-                            >
-                                <EditOutlined className="mx-3" />
-                            </Upload>
-                        </Tooltip>
-                        <Tooltip title={t("common.remove")}>
-                            <DeleteOutlined onClick={onImageRemove} />
+                        <Tooltip title='Remove'>
+                            <img className='cursor-pointer mx-2 w-[25px] h-[25px]' src={close} alt="" onClick={onImageRemove} />
                         </Tooltip>
                     </div>
                 </div>
@@ -135,13 +123,7 @@ const ImageUpload = ({
                 footer={null}
                 title={title}
                 open={previewOpen}
-                onCancel={() => setPreviewOpen(false)}
-                bodyStyle={{
-                    display: "flex",
-                    justifyContent: "center",
-                    marginTop: 20,
-                }}
-            >
+                onCancel={() => setPreviewOpen(false)}>
                 <img src={imgUrl} alt="logo preview" className="w-3/4 rounded" />
             </Modal>
         </>
