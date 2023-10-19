@@ -65,50 +65,59 @@ const Sidebar = (props) => {
                                         darkMode={darkMode}
                                         toggleDarkMode={toggleDarkMode}
                                     />
-                                    <button onClick={() => setIsProfileOpen(prev => !prev)}
-                                            // onBlurCapture={() => setIsProfileOpen(false)}
-                                            type="button"
-                                            className="flex text-sm bg-gray-800 rounded-full focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600"
-                                            aria-expanded="false"
-                                            aria-expanded="false"
-                                            data-dropdown-toggle="dropdown-user">
-                                        <span className="sr-only">Open user menu</span>
-                                        <img className="w-8 h-8 rounded-full"
-                                             src={company.logo ? company.logo : defaultLogo }
-                                             alt="user photo" />
-                                    </button>
-                                </div>
-                                <div className={(isProfileOpen ? '' : 'hidden') + " absolute top-[40px] right-[17px] inset-auto m-0 z-50 my-4 text-base list-none bg-white divide-y divide-gray-100 rounded shadow dark:bg-gray-700 dark:divide-gray-600"}
-                                     id="dropdown-user">
-                                    <div className="px-4 py-3" role="none">
-                                        <p className="text-sm text-gray-900 dark:text-white" role="none">
-                                            {company.name}
-                                        </p>
-                                        <p className="text-sm font-medium text-gray-900 truncate dark:text-gray-300"
-                                           role="none">
-                                            {company.email}
-                                        </p>
+                                    <div onBlur={(e) => {
+                                        if (!e.currentTarget.contains(e.relatedTarget)) {
+                                            setIsProfileOpen(false);
+                                        }
+                                    }
+                                    }>
+                                        <button onClick={() => setIsProfileOpen(prev => !prev)}
+                                                type="button"
+                                                className="flex text-sm bg-gray-800 rounded-full focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600"
+                                                aria-expanded="false"
+                                                aria-expanded="false"
+                                                data-dropdown-toggle="dropdown-user">
+                                            <span className="sr-only">Open user menu</span>
+                                            <img className="w-8 h-8 rounded-full"
+                                                 src={company.logo ? company.logo : defaultLogo}
+                                                 alt="user photo" />
+                                        </button>
+
+                                        <div className={(isProfileOpen ? '' : 'hidden') + " absolute top-[40px] right-[17px] inset-auto m-0 z-50 my-4 text-base list-none bg-white divide-y divide-gray-100 rounded shadow dark:bg-gray-700 dark:divide-gray-600"}
+                                             id="dropdown-user">
+                                            <div className="px-4 py-3" role="none">
+                                                <p className="text-sm text-gray-900 dark:text-white" role="none">
+                                                    {company.name}
+                                                </p>
+                                                <p className="text-sm font-medium text-gray-900 truncate dark:text-gray-300"
+                                                   role="none">
+                                                    {company.email}
+                                                </p>
+                                            </div>
+                                            <ul className="py-1" role="none">
+                                                <li>
+                                                    <Link to={'/dashboard/profile'}
+                                                          className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-white"
+                                                          role="menuitem">Update profile</Link>
+                                                </li>
+                                                <li>
+                                                    <Link to={'/dashboard/profile/change-password'}
+                                                          className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-white"
+                                                          role="menuitem">Change Password</Link>
+                                                </li>
+                                                <li>
+                                                    <button onClick={() => deleteCompany(company._id)}>Delete Account
+                                                    </button>
+                                                </li>
+                                                <li>
+                                                    <button onClick={logout}
+                                                            className="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-white"
+                                                            role="menuitem">Log out
+                                                    </button>
+                                                </li>
+                                            </ul>
+                                        </div>
                                     </div>
-                                    <ul className="py-1" role="none">
-                                        <li>
-                                            <Link to={'/dashboard/profile'}
-                                               className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-white"
-                                               role="menuitem">Update profile</Link>
-                                        </li>
-                                        <li>
-                                            <Link to={'/dashboard/profile/change-password'}
-                                               className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-white"
-                                               role="menuitem">Change Password</Link>
-                                        </li>
-                                        <li>
-                                            <button onClick={() => deleteCompany(company._id)}>Delete Account</button>
-                                        </li>
-                                        <li>
-                                            <button onClick={logout}
-                                               className="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-white"
-                                               role="menuitem">Log out</button>
-                                        </li>
-                                    </ul>
                                 </div>
                             </div>
                         </div>
@@ -123,7 +132,7 @@ const Sidebar = (props) => {
                     <ul className="space-y-2 font-medium">
                         <li>
                             <Link to='/dashboard'
-                               className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
+                                  className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
                                 <svg className="w-5 h-5 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white"
                                      aria-hidden="true"
                                      xmlns="http://www.w3.org/2000/svg"
@@ -137,7 +146,7 @@ const Sidebar = (props) => {
                         </li>
                         <li>
                             <Link to="/dashboard/jobs"
-                               className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
+                                  className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
                                 <svg className="flex-shrink-0 w-5 h-5 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white"
                                      aria-hidden="true"
                                      xmlns="http://www.w3.org/2000/svg"
@@ -151,7 +160,7 @@ const Sidebar = (props) => {
 
                         <li>
                             <Link to="/dashboard/jobs/applications"
-                               className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
+                                  className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
                                 <svg className="flex-shrink-0 w-5 h-5 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white"
                                      aria-hidden="true"
                                      xmlns="http://www.w3.org/2000/svg"
@@ -165,7 +174,7 @@ const Sidebar = (props) => {
                         </li>
                         <li>
                             <button onClick={logout}
-                               className="flex items-center w-full p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
+                                    className="flex items-center w-full p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
                                 <svg className="flex-shrink-0 w-5 h-5 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white"
                                      aria-hidden="true"
                                      xmlns="http://www.w3.org/2000/svg"
@@ -190,7 +199,7 @@ const Sidebar = (props) => {
             </div>
 
         </>
-    )
+)
 }
 
 export default Sidebar;

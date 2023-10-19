@@ -209,7 +209,7 @@ const Register = () => {
                     />
                 </div>
 
-                <Button value="Signup" type="submit" onClick={handleVerifyClick} />
+                <Button value="Signup" type="submit"  />
                 <p className="my-6 dark:text-white">
                     Already have an account?{" "}
                     <Link to={"/login"} className="text-blue-500 font-bold">
