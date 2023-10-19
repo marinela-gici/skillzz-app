@@ -106,7 +106,9 @@ const Sidebar = (props) => {
                                                           role="menuitem">Change Password</Link>
                                                 </li>
                                                 <li>
-                                                    <button onClick={() => deleteCompany(company._id)}>Delete Account
+                                                    <button
+                                                        className="block ps-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-white"
+                                                        onClick={() => deleteCompany(company._id)}>Delete Account
                                                     </button>
                                                 </li>
                                                 <li>
@@ -199,7 +201,7 @@ const Sidebar = (props) => {
             </div>
 
         </>
-)
+    )
 }
 
 export default Sidebar;

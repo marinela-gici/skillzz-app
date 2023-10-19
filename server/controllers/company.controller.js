@@ -55,7 +55,7 @@ const uploadLocalFile = (base64) => {
 module.exports = {
     register: (req, res) => {
         Company.exists({email: req.body.email})
-            .then( (companyExists) => {
+            .then((companyExists) => {
                 if (companyExists) {
                     return Promise.reject({
                         errors: {email: {message: "Email exists"}},
@@ -132,12 +132,22 @@ module.exports = {
 
     deleteCompany: (request, response) => {
         Company.findOne({_id: request.user._id})
-            .then((deleteConfirmation) => {
-                Job.find({job: request.user._id})
-                // Application.deleteMany({company: request.user._id})
-                    .then(res => console.log(res))
-
-                response.json(deleteConfirmation);
+            .then((company) => {
+                Job.find({company: company._id})
+                    .then(jobs => {
+                        Application.find({
+                            'job': {$in: jobs.map((job, index) => job._id)}
+                        }).then((applications) => {
+                            applications.map((application) => application.deleteOne())
+                        })
+                            .then(() => jobs.map((job) => job.deleteOne()))
+                            .then(() => company.deleteOne())
+                            .then(() => {
+                                response.clearCookie("companytoken");
+                                response.sendStatus(200);
+                            })
+                    })
+                    .catch((err) => response.json(err))
             })
             .catch((err) => response.json(err));
     },
