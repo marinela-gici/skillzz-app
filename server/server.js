@@ -5,6 +5,7 @@ const cookieParser = require('cookie-parser');
 const path = require('path');
 const UPLOADS_DIR = path.join(__dirname, 'uploads');
 
+require("dotenv").config();
 
 app.use(express.json({limit: "5mb"}));
 app.use(cookieParser());
@@ -18,6 +19,7 @@ require('./config/mongoose.config');
 require('./routes/company.routes')(app);
 require('./routes/job.routes')(app);
 require('./routes/application.routes')(app);
+require('./routes/contact.routes')(app);
 app.listen(8000, () => {
     console.log("Listening at Port 8000")
 })
