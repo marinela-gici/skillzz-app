@@ -85,7 +85,7 @@ const Contact = () => {
                                           placeholder="Leave a message..."></textarea>
                                 </label>
                             </div>
-                            <ReCAPTCHA sitekey="6LcRQrEoAAAAAKqIchlVdNNqRxa1AptFq293R-Kx" ref={captchaRef} />
+                            <ReCAPTCHA size='normal' sitekey="6LcRQrEoAAAAAKqIchlVdNNqRxa1AptFq293R-Kx" ref={captchaRef} />
                             <button
                                 className="dark:bg-rose-400 dark:hover:bg-rose-500 bg-emerald-400 hover:bg-emerald-600 rounded-md md:px-6 px-4 md:py-3 py-2 text-lg font-semibold text-white shadow-sm"
                             >Send message

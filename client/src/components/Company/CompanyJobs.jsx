@@ -4,6 +4,7 @@ import {useNavigate} from "react-router-dom";
 
 const CompanyJobs = () => {
     const [jobs, setJobs] = useState([]);
+    const [company, setCompany] = useState({});
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -16,6 +17,16 @@ const CompanyJobs = () => {
             .catch(err => console.log(err))
     }, []);
 
+    useEffect(() => {
+        axios
+            .get('http://localhost:8000/api/dashboard/profile', {withCredentials: true})
+            .then(res => {
+                setCompany(res.data);
+            })
+            .catch(err => {
+                console.log(err);
+            })
+    }, []);
 
     return (
         <>
@@ -24,7 +35,7 @@ const CompanyJobs = () => {
                     <div key={index}
                          className="flex flex-wrap items-center container pt-4 border overflow-hidden hover:border-emerald-500 dark:hover:border-rose-400 dark:bg-gray-800 dark:text-white rounded-md my-8 bg-white">
                         <div className="w-full flex justify-center items-center md:w-1/5 mb-4">
-                            <img src='https://myrathemes.com/jobsila/images/featured-job/img-1.png' />
+                            <img className='w-[100px]' src={company.logo} />
                         </div>
 
                         <div className="w-full flex flex-col justify-center items-center md:w-1/5 mb-4">

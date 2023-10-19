@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import DarkMode from "../DarkMode.jsx";
-import {Link, useNavigate} from "react-router-dom";
+import {Link, useNavigate, useParams} from "react-router-dom";
 import axios from 'axios';
 import defaultLogo from '../../assets/default-logo.svg';
 
@@ -10,16 +10,6 @@ const Sidebar = (props) => {
     const [isProfileOpen, setIsProfileOpen] = useState(false);
     const {company, darkMode, toggleDarkMode, children} = props;
     const navigate = useNavigate();
-
-    // useEffect(() => {
-    //     axios
-    //         .get('http://localhost:8000/api/dashboard/profile', {withCredentials: true})
-    //         .then(res => {
-    //             console.log(res.data);
-    //             setCompany(res.data);
-    //         })
-    //         .catch(err => console.log(err))
-    // }, []);
 
     const logout = () => {
         axios
@@ -31,9 +21,19 @@ const Sidebar = (props) => {
             .catch(err => console.log(err));
     }
 
+    const deleteCompany = () => {
+        axios
+            .delete(`http://localhost:8000/api/dashboard/profile`, {withCredentials: true})
+            .then((res) => {
+                console.log('testtttttt')
+                console.log(res.data);
+                navigate('/')
+            })
+            .catch((err) => console.log(err));
+    };
+
     return (
         <>
-
             <nav className="fixed top-0 z-50 w-full bg-white border-b border-gray-200 dark:bg-gray-800 dark:border-gray-700">
                 <div className="px-3 py-3 lg:px-5 lg:pl-3">
                     <div className="flex items-center justify-between">
@@ -66,6 +66,7 @@ const Sidebar = (props) => {
                                         toggleDarkMode={toggleDarkMode}
                                     />
                                     <button onClick={() => setIsProfileOpen(prev => !prev)}
+                                            // onBlurCapture={() => setIsProfileOpen(false)}
                                             type="button"
                                             className="flex text-sm bg-gray-800 rounded-full focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600"
                                             aria-expanded="false"
@@ -98,6 +99,9 @@ const Sidebar = (props) => {
                                             <Link to={'/dashboard/profile/change-password'}
                                                className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-white"
                                                role="menuitem">Change Password</Link>
+                                        </li>
+                                        <li>
+                                            <button onClick={() => deleteCompany(company._id)}>Delete Account</button>
                                         </li>
                                         <li>
                                             <button onClick={logout}

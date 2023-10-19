@@ -5,6 +5,7 @@ const Job = require("../models/job.model");
 const fs = require('fs');
 const path = require('path');
 const crypto = require('crypto');
+const Application = require("../models/application.model");
 const UPLOADS_DIR = path.join(__dirname, '..', 'uploads');
 const getToken = (company) => {
     const payload = {
@@ -127,6 +128,18 @@ module.exports = {
         })
             .then((updated) => response.json(updated))
             .catch((err) => response.status(400).json(err));
+    },
+
+    deleteCompany: (request, response) => {
+        Company.findOne({_id: request.user._id})
+            .then((deleteConfirmation) => {
+                Job.find({job: request.user._id})
+                // Application.deleteMany({company: request.user._id})
+                    .then(res => console.log(res))
+
+                response.json(deleteConfirmation);
+            })
+            .catch((err) => response.json(err));
     },
 
     updatePassword: (request, response) => {

@@ -12,4 +12,5 @@ module.exports = (app) => {
     app.patch("/api/company/jobs/:id", authenticate, JobController.updateJob);
     app.delete("/api/company/jobs/:id", authenticate, JobController.deleteJob);
 
+
 }

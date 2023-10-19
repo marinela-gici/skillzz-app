@@ -100,6 +100,14 @@ function App() {
                                }>
                         </Route>
 
+                        {/*<Route exact path="/verifyemail/:verificationCode"*/}
+                        {/*       element={*/}
+                        {/*           <PublicLayout darkMode={darkMode} toggleDarkMode={toggleDarkMode}>*/}
+                        {/*               <JobDetails />*/}
+                        {/*           </PublicLayout>*/}
+                        {/*       }>*/}
+                        {/*</Route>*/}
+
                         <Route exact path="/dashboard"
                                element={
                                    <ProtectedLayout darkMode={darkMode} toggleDarkMode={toggleDarkMode}>
