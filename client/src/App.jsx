@@ -16,9 +16,9 @@ import ProtectedLayout from "./views/ProtectedLayout.jsx";
 import Dashboard from "./components/Company/Dashboard.jsx";
 import JobApplications from "./components/Company/JobApplications.jsx"
 import EditJob from "./components/Company/EditJob.jsx";
-import axios from "axios";
 import {ToastContainer} from 'react-toastify';
 import "react-toastify/dist/ReactToastify.css";
+import ApplicationDetails from "./components/Company/ApplicationDetails.jsx";
 
 function App() {
     const [darkMode, setDarkMode] = useState(
@@ -99,15 +99,6 @@ function App() {
                                    </PublicLayout>
                                }>
                         </Route>
-
-                        {/*<Route exact path="/verifyemail/:verificationCode"*/}
-                        {/*       element={*/}
-                        {/*           <PublicLayout darkMode={darkMode} toggleDarkMode={toggleDarkMode}>*/}
-                        {/*               <JobDetails />*/}
-                        {/*           </PublicLayout>*/}
-                        {/*       }>*/}
-                        {/*</Route>*/}
-
                         <Route exact path="/dashboard"
                                element={
                                    <ProtectedLayout darkMode={darkMode} toggleDarkMode={toggleDarkMode}>
@@ -157,21 +148,13 @@ function App() {
                                    </ProtectedLayout>
                                }>
                         </Route>
-
-                        {/*/!*<Route exact path="/dashboard/profile" element={<UpdateProfile />}></Route>*!/*/}
-                        {/*<Route exact path="/dashboard/profile/change-password" element={<ChangePassword />}></Route>*/}
-                        {/*<Route exact path="/dashboard/jobs" element={<CompanyJobs />}></Route>*/}
-                        {/*<Route exact path="/dashboard/jobs/create" element={<JobForm />}></Route>*/}
-                        {/*<Route*/}
-                        {/*    path='/dashboard1'*/}
-                        {/*    element={*/}
-                        {/*        <ProtectedRoutes user={user}>*/}
-                        {/*            /!*<ProtectedLayout>ProtectedLayout*!/*/}
-                        {/*            /!*  <Jobs />*!/*/}
-                        {/*            /!*</ProtectedLayout>*!/*/}
-                        {/*        </ProtectedRoutes>*/}
-                        {/*    }*/}
-                        {/*></Route>*/}
+                        <Route exact path="/dashboard/jobs/:id/applications/:applicationId"
+                               element={
+                                   <ProtectedLayout darkMode={darkMode} toggleDarkMode={toggleDarkMode}>
+                                       <ApplicationDetails />
+                                   </ProtectedLayout>
+                               }>
+                        </Route>
                     </Routes>
                     <ScrollToTop />
                 </BrowserRouter>

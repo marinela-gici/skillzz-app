@@ -133,13 +133,10 @@ const JobApplications = () => {
                             <p className="dark:text-white pb-4">Applicants
                                 for <span className="text-emerald-400 dark:text-rose-500">{job.title}</span> position
                             </p>
-                            {job.applications.length === 0 &&
-                                <p className="text-xl text-red-600 font-bold">No applications yet!</p>}
-                            {job.applications.length > 0 && job.applications.map((application, index) => {
-                                return (
+                            {job.applications.length === 0 ?
+                                <p className="text-xl text-red-600 font-bold">No applications yet!</p> : (
 
-                                    <table key={index}
-                                           className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+                                    <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
                                         <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                                         <tr>
                                             <th scope="col" className="px-6 py-3">
@@ -151,38 +148,42 @@ const JobApplications = () => {
                                             <th scope="col" className="px-6 py-3">
                                                 email
                                             </th>
-                                            <th scope="col" className="px-6 py-3">
+                                            <th scope="col" className="hidden lg:block px-6 py-3">
                                                 message
                                             </th>
                                             <th scope="col" className="px-6 py-3">
-                                                {job.title}
+                                                Action
                                             </th>
                                         </tr>
                                         </thead>
                                         <tbody>
-                                        <tr className="bg-white border-b dark:bg-gray-900 dark:border-gray-700">
-                                            <th scope="row"
-                                                className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                                {application.firstName}
-                                            </th>
-                                            <td className="px-6 py-4">
-                                                {application.lastName}
-                                            </td>
-                                            <td className="px-6 py-4">
-                                                {application.email}
-                                            </td>
-                                            <td className="px-6 py-4">
-                                                {application.message}
-                                            </td>
-                                            <td className="px-6 py-4">
-                                                <a href="#"
-                                                   className="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</a>
-                                            </td>
-                                        </tr>
+                                        {job.applications.length > 0 && job.applications.map((application, index) => {
+                                            return (
+                                                <tr key={index}
+                                                    className="bg-white border-b dark:bg-gray-900 dark:border-gray-700">
+                                                    <th scope="row"
+                                                        className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                                        {application.firstName}
+                                                    </th>
+                                                    <td className="px-6 py-4">
+                                                        {application.lastName}
+                                                    </td>
+                                                    <td className="px-6 py-4">
+                                                        {application.email}
+                                                    </td>
+                                                    <td className="hidden lg:block px-6 py-4">
+                                                        {application.message}
+                                                    </td>
+                                                    <td className="px-6 py-4">
+                                                        <Link to={`/dashboard/jobs/${job._id}/applications/${application._id}`}
+                                                              className="font-medium text-blue-600 dark:text-blue-500 hover:underline">View</Link>
+                                                    </td>
+                                                </tr>
+                                            )
+                                        })}
                                         </tbody>
                                     </table>
-                                )
-                            })}
+                                )}
                         </div>
                     </div>
                 </div>

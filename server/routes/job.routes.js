@@ -11,6 +11,5 @@ module.exports = (app) => {
     app.get("/api/company/jobs/:id", authenticate, JobController.getCompanyJob);
     app.patch("/api/company/jobs/:id", authenticate, JobController.updateJob);
     app.delete("/api/company/jobs/:id", authenticate, JobController.deleteJob);
-
-
+    app.get("/api/company/jobs/:id/applications/:applicationId", authenticate, JobController.getApplication);
 }

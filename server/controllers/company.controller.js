@@ -87,7 +87,7 @@ module.exports = {
         const company = await Company.findOne({email: req.body.email});
 
         if (company === null) {
-            return res.json({error: 'Enter a valid email and password'}, 400);
+            return res.status(400).json({error: 'Enter a valid email and password'});
         }
         const correctPassword = await bcrypt.compare(
             req.body.password,
@@ -95,7 +95,7 @@ module.exports = {
         );
 
         if (!correctPassword) {
-            return res.json({error: 'Enter a valid email and password'}, 400);
+            return res.status(400).json({error: 'Enter a valid email and password'});
         }
 
         res
@@ -161,23 +161,23 @@ module.exports = {
                 );
 
                 if (!correctPassword) {
-                    // return response.status(400).json({errors: {password: {message: 'Password is incorrect'}}});
+                    return response.status(400).json({errors: {password: {message: 'Password is incorrect'}}});
                 }
 
                 company.newPassword = request.body.newPassword;
                 company.confirmNewPassword = request.body.confirmNewPassword;
-                company.validate();
-
-
-                Company.findOneAndUpdate({_id: company._id}, request.body, {
-                    new: true, runValidators: true
-                })
-                    .then((updated) => response.json(updated))
-                    .catch((err) => response.status(400).json(err));
+                await company.validate()
+                    .then(() => {
+                        company.password = request.body.newPassword;
+                        company.save()
+                            .then((updated) => response.json(updated))
+                            .catch((err) => response.status(400).json(err));
+                    })
+                    .catch((err) => response.status(400).json(err))
             })
             .catch((err) => {
                 console.log(err);
-                response.json(err);
+                response.status(400).json(err);
             });
     },
 

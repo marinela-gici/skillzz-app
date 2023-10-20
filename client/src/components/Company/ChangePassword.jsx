@@ -1,7 +1,7 @@
-import React, {useEffect, useState} from "react";
+import React, {useState} from "react";
 import axios from "axios";
 import {useNavigate} from "react-router-dom";
-import Button from "../Button.jsx";
+import {toast} from "react-toastify";
 
 const ChangePassword = () => {
     const [password, setPassword] = useState("");
@@ -20,7 +20,8 @@ const ChangePassword = () => {
             }, {withCredentials: true})
             .then((res) => {
                 console.log(res.data);
-                // navigate('/dashboard');
+                toast.success('Password changed successfully!');
+                navigate('/dashboard');
             })
             .catch((error) => {
                 console.log(error);

@@ -56,6 +56,20 @@ module.exports = {
             .catch((err) => response.json(err));
     },
 
+    getApplication: (request, response) => {
+        Job.findOne({_id: request.params.id, company: request.user._id})
+            .then((job) => {
+                Application.findOne({_id: request.params.applicationId, job: job._id})
+                    .populate('job')
+                    .then((application) => {
+                        console.log(application);
+                        response.json(application);
+                    })
+                    .catch(err => console.log(err));
+            })
+            .catch(err => console.log(err));
+    },
+
     getDashboard: (request, response) => {
         Job.countDocuments({company: request.user._id}, function (err, count) {
             if (err) {

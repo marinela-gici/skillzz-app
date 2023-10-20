@@ -40,38 +40,63 @@ const CompanySchema = new mongoose.Schema(
     },
     {
         timestamps: true,
-        toObject: {getters: true, setters: true},
-        toJSON: {getters: true, setters: true}
+        toObject: {getters: true}
     }
 );
+
+CompanySchema.method('toJSON', function() {
+    let company = this.toObject();
+    delete company.confirmPassword;
+    delete company.newPassword;
+    delete company.confirmNewPassword;
+
+    return company;
+});
 
 CompanySchema.virtual("confirmPassword")
     .get(() => this._confirmPassword)
     .set((value) => (this._confirmPassword = value));
 
-// CompanySchema.virtual("newPassword")
-//     .get(() => this._newPassword)
-//     .set((value) => (this._newPassword = value));
-// CompanySchema.virtual("confirmNewPassword")
-//     .get(() => this._confirmNewPassword)
-//     .set((value) => (this._confirmNewPassword = value));
+CompanySchema.virtual("newPassword", {})
+    .get(() => this._newPassword)
+    .set((value) => (this._newPassword = value));
+
+CompanySchema.virtual("confirmNewPassword")
+    .get(() => this._confirmNewPassword)
+    .set((value) => (this._confirmNewPassword = value));
 
 CompanySchema.pre("validate", function (next) {
-    console.log('pre avlidat')
-    if (this.password !== this.confirmPassword) {
+    // Check if confirmPassword is present and then compare it with password.
+    if (this.confirmPassword !== undefined && this.password !== this.confirmPassword) {
         this.invalidate("confirmPassword", "Confirm Password must match password");
     }
 
-    // if (! this.newPassword.check(this.newPassword).min(8)) {
-    //     this.invalidate('newPassword', 'New password must must be 8 characters or longer.');
-    // }
-    // if (!val.check(this._confirmNewPassword).min(8)) {
-    //     this.invalidate('confirmNewPassword', 'Confirm new password must be 8 characters or longer.');
-    // }
-    // if (this._newPassword !== this._confirmNewPassword) {
-    //     this.invalidate("confirmNewPassword", "Confirm new password must match new password");
-    // }
+    // Check if newPassword is present and validate required and minLength.
+    if (this.newPassword !== undefined) {
+        if (!this.newPassword) {
+            this.invalidate("newPassword", "New password is required");
+        }
 
+        if (this.newPassword.length < 8) {
+            this.invalidate("newPassword", "New password must be 8 characters or longer");
+        }
+    }
+
+    // Check if confirmNewPassword is present and validate required and minLength.
+    if (this.confirmNewPassword !== undefined) {
+        if (!this.confirmNewPassword) {
+            this.invalidate("confirmNewPassword", "Confirm new password is required");
+        }
+
+        if (this.confirmNewPassword.length < 8) {
+            this.invalidate("confirmNewPassword", "Confirm new password must be 8 characters or longer");
+        }
+    }
+
+    // Check if newPassword and confirmNewPassword are present and then compare them.
+    if (this.newPassword !== undefined && this.confirmNewPassword !== undefined && this.newPassword !== this.confirmNewPassword) {
+        this.invalidate("confirmNewPassword", "Confirm new password must match new password");
+    }
 
     next();
 });
