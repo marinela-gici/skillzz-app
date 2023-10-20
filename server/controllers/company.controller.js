@@ -20,9 +20,7 @@ const uploadImage = (base64) => {
     const isBase64 = (str) => base64RegExp.test(str);
 
     if (isBase64(base64)) {
-        const filename = uploadLocalFile(base64);
-        console.log(filename);
-        return filename;
+        return uploadLocalFile(base64);
     }
 
     return "";
@@ -39,7 +37,9 @@ const getFileName = () => {
 const uploadLocalFile = (base64) => {
     const filename = getFileName();
     const filePath = path.join(UPLOADS_DIR, filename);
-    const base64Data = base64.replace(/^data:image\/png;base64,/, "");
+    const base64Data = base64.replace(/^data:image\/png;base64,/, "")
+        .replace(/^data:image\/jpg;base64,/, "")
+        .replace(/^data:image\/jpeg;base64,/, "");
     try {
         if (!fs.existsSync(UPLOADS_DIR)) {
             fs.mkdirSync(UPLOADS_DIR, {recursive: true});
