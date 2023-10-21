@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from "react";
 import axios from "axios";
 import {useNavigate, Link} from "react-router-dom";
+import defaultLogo from '../assets/default-logo.svg';
 
 const ShowLatestJobs = ({scrollRef}) => {
     const [jobs, setJobs] = useState([]);
@@ -12,14 +13,14 @@ const ShowLatestJobs = ({scrollRef}) => {
                 "http://localhost:8000/api/jobs",
                 {
                     params: {
-                        limit: 6,
+                        limit: 5,
                     },
                 },
                 {withCredentials: true}
             )
             .then((res) => {
                 console.log(res.data);
-                setJobs(res.data);
+                setJobs(res.data.jobs);
             })
             .catch((err) => console.log(err));
     }, []);
@@ -36,7 +37,7 @@ const ShowLatestJobs = ({scrollRef}) => {
                         <div key={index}
                              className="flex flex-wrap items-center container pt-4 border hover:border-emerald-500 dark:hover:border-rose-400 dark:bg-gray-800 dark:text-white rounded-md my-8 bg-white overflow-hidden hover:-translate-y-0.5 transition ease-in-out delay-300">
                             <div className="w-full flex justify-center items-center md:w-1/5 mb-4">
-                                <img src='https://myrathemes.com/jobsila/images/featured-job/img-1.png' />
+                                <img className="w-[100px]" src={job.company.logo ? (import.meta.env.VITE_IMAGES_BASE_URL+job.company.logo) : defaultLogo} />
                             </div>
 
                             <div className="w-full flex flex-col justify-center items-center md:w-1/5 mb-4">

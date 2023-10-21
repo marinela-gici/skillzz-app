@@ -1,5 +1,6 @@
 import {useState, useEffect} from "react";
 import "./App.css";
+import io from 'socket.io-client';
 import {BrowserRouter, Routes, Route} from "react-router-dom";
 import Main from "./views/Main";
 import Register from "./components/Register";
@@ -21,6 +22,8 @@ import "react-toastify/dist/ReactToastify.css";
 import ApplicationDetails from "./components/Company/ApplicationDetails.jsx";
 
 function App() {
+    const socket = io('http://127.0.0.1:8000',{ transports: ['websocket', 'polling', 'flashsocket'] });
+
     const [darkMode, setDarkMode] = useState(
         localStorage.getItem("darkMode") === "1" ? 1 : 0
     );
@@ -37,31 +40,22 @@ function App() {
         }
     }, [darkMode]);
 
-    const onScroll = (e) => {
-        const {offsetHeight, scrollTop, scrollHeight} = e.target;
-
-        if (offsetHeight + scrollTop + 20 >= scrollHeight) {
-            const shouldUpdateEvent = new CustomEvent("shouldUpdateList", {});
-            document.dispatchEvent(shouldUpdateEvent);
-        }
-    }
-
     return (
-        <div className={(darkMode ? "dark" : "") + " overflow-y-auto h-screen"} onScroll={onScroll}>
-            <ToastContainer
-                position="top-center"
-                autoClose={500}
-                hideProgressBar={false}
-                newestOnTop={false}
-                closeOnClick={false}
-                rtl={false}
-                pauseOnFocusLoss
-                draggable
-                pauseOnHover
-                theme="colored"
-            />
+        <div className={(darkMode ? "dark" : "") + " overflow-y-auto h-screen"}>
             <div className="bg-main dark:bg-gray-900 min-h-full py-4">
                 <BrowserRouter>
+                    <ToastContainer
+                        position="top-center"
+                        autoClose={500}
+                        hideProgressBar={false}
+                        newestOnTop={false}
+                        closeOnClick={false}
+                        rtl={false}
+                        pauseOnFocusLoss
+                        draggable
+                        pauseOnHover
+                        theme="colored"
+                    />
                     <Routes>
                         <Route exact path="/"
                                element={
@@ -95,62 +89,62 @@ function App() {
                         <Route exact path="/jobs/:id"
                                element={
                                    <PublicLayout darkMode={darkMode} toggleDarkMode={toggleDarkMode}>
-                                       <JobDetails />
+                                       <JobDetails socket={socket} />
                                    </PublicLayout>
                                }>
                         </Route>
                         <Route exact path="/dashboard"
                                element={
-                                   <ProtectedLayout darkMode={darkMode} toggleDarkMode={toggleDarkMode}>
+                                   <ProtectedLayout socket={socket} darkMode={darkMode} toggleDarkMode={toggleDarkMode}>
                                        <Dashboard />
                                    </ProtectedLayout>
                                }>
                         </Route>
                         <Route exact path="/dashboard/profile"
                                element={
-                                   <ProtectedLayout darkMode={darkMode} toggleDarkMode={toggleDarkMode}>
+                                   <ProtectedLayout socket={socket} darkMode={darkMode} toggleDarkMode={toggleDarkMode}>
                                        <UpdateProfile />
                                    </ProtectedLayout>
                                }>
                         </Route>
                         <Route exact path="/dashboard/profile/change-password"
                                element={
-                                   <ProtectedLayout darkMode={darkMode} toggleDarkMode={toggleDarkMode}>
+                                   <ProtectedLayout socket={socket} darkMode={darkMode} toggleDarkMode={toggleDarkMode}>
                                        <ChangePassword />
                                    </ProtectedLayout>
                                }>
                         </Route>
                         <Route exact path="/dashboard/jobs"
                                element={
-                                   <ProtectedLayout darkMode={darkMode} toggleDarkMode={toggleDarkMode}>
+                                   <ProtectedLayout socket={socket} darkMode={darkMode} toggleDarkMode={toggleDarkMode}>
                                        <CompanyJobs />
                                    </ProtectedLayout>
                                }>
                         </Route>
                         <Route exact path="/dashboard/jobs/create"
                                element={
-                                   <ProtectedLayout darkMode={darkMode} toggleDarkMode={toggleDarkMode}>
+                                   <ProtectedLayout socket={socket} darkMode={darkMode} toggleDarkMode={toggleDarkMode}>
                                        <JobForm />
                                    </ProtectedLayout>
                                }>
                         </Route>
                         <Route exact path="/dashboard/jobs/:id"
                                element={
-                                   <ProtectedLayout darkMode={darkMode} toggleDarkMode={toggleDarkMode}>
+                                   <ProtectedLayout socket={socket} darkMode={darkMode} toggleDarkMode={toggleDarkMode}>
                                        <JobApplications />
                                    </ProtectedLayout>
                                }>
                         </Route>
                         <Route exact path="/dashboard/jobs/:id/edit"
                                element={
-                                   <ProtectedLayout darkMode={darkMode} toggleDarkMode={toggleDarkMode}>
+                                   <ProtectedLayout socket={socket} darkMode={darkMode} toggleDarkMode={toggleDarkMode}>
                                        <EditJob />
                                    </ProtectedLayout>
                                }>
                         </Route>
                         <Route exact path="/dashboard/jobs/:id/applications/:applicationId"
                                element={
-                                   <ProtectedLayout darkMode={darkMode} toggleDarkMode={toggleDarkMode}>
+                                   <ProtectedLayout socket={socket} darkMode={darkMode} toggleDarkMode={toggleDarkMode}>
                                        <ApplicationDetails />
                                    </ProtectedLayout>
                                }>

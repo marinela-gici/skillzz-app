@@ -1,11 +1,10 @@
 import React, {useState, useEffect} from "react";
 import {useNavigate, useParams, Link} from "react-router-dom";
 import moment from "moment";
-import Button from "./Button.jsx";
 import ApplicationModal from "./ApplicationModal.jsx";
 
 const JobDetailsContent = (props) => {
-    const {job} = props;
+    const {job, socket} = props;
 
     return (
         <>
@@ -49,7 +48,7 @@ const JobDetailsContent = (props) => {
                     <p className="capitalize">${job.salary}</p>
                 </div>
             </div>
-            <ApplicationModal job={job}  />
+            <ApplicationModal socket={socket} job={job}  />
         </>
     );
 };

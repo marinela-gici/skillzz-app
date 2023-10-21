@@ -4,7 +4,7 @@ import {toast} from "react-toastify";
 
 
 const ApplicationModal = (props) => {
-    const {job} = props;
+    const {job, socket} = props;
     const [isActive, setIsActive] = useState(false);
     const [firstName, setFirstName] = useState("");
     const [lastName, setLastName] = useState("");
@@ -28,6 +28,7 @@ const ApplicationModal = (props) => {
                 console.log(res);
                 setIsActive(false);
                 resetForm();
+                socket.emit("newApplication", res.data);
 
                 toast.success('Congrats! Your application has been received!', {
                     position: "top-center",

@@ -1,8 +1,7 @@
 import React from "react";
-import {Link, useNavigate} from "react-router-dom";
+import {Link} from "react-router-dom";
 
 const Dashboard = () => {
-    const navigate = useNavigate();
     return (
         <>
             <div className="flex flex-wrap p-4 border-gray-200 dark:border-gray-700">

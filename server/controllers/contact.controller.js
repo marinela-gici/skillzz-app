@@ -1,9 +1,26 @@
 module.exports = {
     contact: async (req, res) => {
         try {
-            const token = req.body.token;
+            let errors = {};
+            const {token, name, email, subject, message} = req.body;
             if (!token) {
-                return res.status(500).json({message: "reCAPTCHA is required! Please, try again!"});
+                errors["token"] = {message: "reCAPTCHA is required! Please, try again!"};
+            }
+            if (!name) {
+                errors["name"] = {message: "Name is required!"};
+            }
+            if (!email) {
+                errors["email"] = {message: "Email is required!"};
+            }
+            if (!subject) {
+                errors["subject"] = {message: "Subject is required!"};
+            }
+            if (!message) {
+                errors["message"] = {message: "Message is required!"};
+            }
+
+            if(Object.keys(errors).length !== 0) {
+                return res.status(400).json({errors: errors})
             }
 
             const response = await fetch(

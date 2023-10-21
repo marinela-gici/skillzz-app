@@ -1,6 +1,6 @@
 const Job = require("../models/job.model");
 const Application = require("../models/application.model");
-const {request, response} = require("express");
+const paginate = require('express-paginate');
 
 module.exports = {
     createJob: (req, res) => {
@@ -80,18 +80,29 @@ module.exports = {
         });
     },
 
-    getAllJobs: (request, response) => {
-        const limit = request.query.limit ?? 10;
-        const skip = request.query.skip ?? 0;
-        Job.find({}).populate('applications').skip(skip).limit(limit).sort({createdAt: 'desc'})
-            .then((jobs) => {
-                // console.log(jobs);
-                response.json(jobs);
+    getAllJobs: async (request, response, next) => {
+        try {
+
+            const limit = request.query.limit ?? 5;
+            const skip = request.skip ?? 0;
+            const page = request.query.page ?? 1;
+
+            const [results, itemCount] = await Promise.all([
+                Job.find({}).populate('company').populate('applications').skip(skip).limit(limit).sort({createdAt: 'desc'}).lean().exec(),
+                Job.count({})
+            ]);
+
+            const pageCount = Math.ceil(itemCount / limit);
+
+            response.json({
+                jobs: results,
+                pageCount,
+                itemCount,
+                links: paginate.getArrayPages(request)(pageCount, pageCount, page)
             })
-            .catch((err) => {
-                console.log(err);
-                response.json(err);
-            });
+        } catch (err) {
+            response.status(400).json(err);
+        }
     },
 
     getOneJob: (request, response) => {

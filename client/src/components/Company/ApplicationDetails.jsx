@@ -14,7 +14,8 @@ const ApplicationDetails = () => {
                 setApplication(res.data)
             })
             .catch(err => console.log(err))
-    }, []);
+    }, [id, applicationId]);
+
     return (
         <>
             {application &&

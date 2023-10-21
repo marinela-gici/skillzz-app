@@ -2,40 +2,27 @@ import React, {useEffect, useState} from "react";
 import {Link} from "react-router-dom";
 import axios from "axios";
 import JobDetailsContent from "./JobDetailsContent";
+import Pagination from "./Pagination";
 import moment from "moment";
 
 const JobsList = () => {
-    const [jobs, setJobs] = useState([]);
-    const [activeJob, setActiveJob] = useState(null);
-    const [skip, setSkip] = useState(0);
-    const [isEnd, setIsEnd] = useState(false);
+    const PER_PAGE = 5;
 
-    const PER_PAGE = 2;
+    const [jobs, setJobs] = useState([]);
+    const [links, setLinks] = useState([]);
+    const [activeJob, setActiveJob] = useState(null);
+    const [page, setPage] = useState(1);
+    const [currentPage, setCurrentPage] = useState(`/api/jobs?limit=${PER_PAGE}&page=${page}`)
+
     useEffect(() => {
         axios
-            .get("http://localhost:8000/api/jobs",
-                {
-                    params: {
-                        limit: PER_PAGE,
-                        skip: skip,
-                    },
-                })
+            .get(`http://localhost:8000${currentPage}`)
             .then((res) => {
-                setJobs([...jobs, ...res.data]);
-
-                if (res.data?.length < PER_PAGE) {
-                    setIsEnd(true);
-                }
+                setJobs(res.data.jobs);
+                setLinks(res.data.links);
             })
             .catch((err) => console.log(err));
-    }, [skip]);
-
-    document.addEventListener("shouldUpdateList", () => {
-        // console.log('test')
-        if (!isEnd) {
-            setSkip(jobs?.length);
-        }
-    });
+    }, [currentPage]);
 
     const getShortDescription = (description) => {
         if (description.length > 50) {
@@ -52,7 +39,7 @@ const JobsList = () => {
                         jobs.map((job, index) => {
                             return (
                                 <div
-                                    onClick={() => setActiveJob((prevJob) => job)}
+                                    onClick={() => setActiveJob(job)}
                                     key={index}
                                     className={(activeJob && activeJob._id === job._id ? "border-emerald-400 dark:border-rose-400" : 'border-gray-200 dark:border-gray-700') + " p-6 mb-4 bg-white border rounded-lg shadow dark:bg-gray-800"}
                                 >
@@ -80,6 +67,9 @@ const JobsList = () => {
                                 </div>
                             );
                         })}
+                    {links.length > 1 &&
+                        <Pagination page={page} setPage={setPage} setCurrentPage={setCurrentPage} links={links} />
+                    }
                 </div>
                 {activeJob && (
                     <div className="hidden md:block md:w-3/5 p-5">

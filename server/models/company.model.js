@@ -1,8 +1,5 @@
 const mongoose = require("mongoose");
 const bcrypt = require("bcrypt");
-const fs = require("fs");
-const path = require("path");
-const UPLOADS_DIR = path.join(__dirname, '..', 'uploads');
 
 const CompanySchema = new mongoose.Schema(
     {
@@ -29,29 +26,10 @@ const CompanySchema = new mongoose.Schema(
         },
         logo: {
             type: String,
-            get: function (filename) {
-                if(filename && fs.existsSync(path.join(UPLOADS_DIR, filename))) {
-                    return `http://localhost:8000/images/${filename}`
-                } else {
-                    return "";
-                }
-            }
         }
     },
-    {
-        timestamps: true,
-        toObject: {getters: true}
-    }
+    {timestamps: true}
 );
-
-CompanySchema.method('toJSON', function() {
-    let company = this.toObject();
-    delete company.confirmPassword;
-    delete company.newPassword;
-    delete company.confirmNewPassword;
-
-    return company;
-});
 
 CompanySchema.virtual("confirmPassword")
     .get(() => this._confirmPassword)

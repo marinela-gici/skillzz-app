@@ -171,9 +171,9 @@ const JobForm = () => {
             </option>
           </select>
 
-          {validation.experience ? (
+          {validation.employmentType ? (
             <p className="text-sm text-red-600 font-bold">
-              {validation.experience.message}
+              {validation.employmentType.message}
             </p>
           ) : (
             ""

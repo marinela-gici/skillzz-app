@@ -3,7 +3,7 @@ import {useNavigate, useParams, Link} from "react-router-dom";
 import axios from 'axios';
 import JobDetailsContent from "./JobDetailsContent";
 
-const JobDetails = () => {
+const JobDetails = ({socket}) => {
     const {id} = useParams();
     const [job, setJob] = useState({});
     const navigate = useNavigate();
@@ -30,7 +30,7 @@ const JobDetails = () => {
                     </svg>
 
                     Back to jobs</Link>
-                <JobDetailsContent job={job}/>
+                <JobDetailsContent socket={socket} job={job}/>
             </div>
         </div>
     );

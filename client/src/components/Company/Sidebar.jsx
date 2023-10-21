@@ -5,7 +5,6 @@ import axios from 'axios';
 import defaultLogo from '../../assets/default-logo.svg';
 
 const Sidebar = (props) => {
-    // const [company, setCompany] = useState({});
     const [isOpen, setIsOpen] = useState(false);
     const [isProfileOpen, setIsProfileOpen] = useState(false);
     const {company, darkMode, toggleDarkMode, children} = props;
@@ -29,7 +28,6 @@ const Sidebar = (props) => {
         axios
             .delete(`http://localhost:8000/api/dashboard/profile`, {withCredentials: true})
             .then((res) => {
-                console.log('testtttttt')
                 console.log(res.data);
                 navigate('/')
             })
@@ -84,7 +82,7 @@ const Sidebar = (props) => {
                                                 data-dropdown-toggle="dropdown-user">
                                             <span className="sr-only">Open user menu</span>
                                             <img className="w-8 h-8 rounded-full"
-                                                 src={company.logo ? company.logo : defaultLogo}
+                                                 src={company.logo ? (import.meta.env.VITE_IMAGES_BASE_URL+company.logo) : defaultLogo}
                                                  alt="user photo" />
                                         </button>
 

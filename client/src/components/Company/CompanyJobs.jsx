@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from "react";
 import axios from "axios";
 import {useNavigate} from "react-router-dom";
+import defaultLogo from '../../assets/default-logo.svg';
 
 const CompanyJobs = () => {
     const [jobs, setJobs] = useState([]);
@@ -36,7 +37,7 @@ const CompanyJobs = () => {
                     <div key={index}
                          className="flex flex-wrap items-center container pt-4 border overflow-hidden hover:border-emerald-500 dark:hover:border-rose-400 dark:bg-gray-800 dark:text-white rounded-md my-8 bg-white">
                         <div className="w-full flex justify-center items-center md:w-1/5 mb-4">
-                            <img className='w-[100px]' src={company.logo} />
+                            <img className='w-[100px]' src={company.logo ? (import.meta.env.VITE_IMAGES_BASE_URL+company.logo) : defaultLogo} />
                         </div>
 
                         <div className="w-full flex flex-col justify-center items-center md:w-1/5 mb-4">
