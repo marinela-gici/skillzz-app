@@ -1,3 +1,5 @@
+const {transporter} = require('../config/nodemailer.config');
+
 module.exports = {
     contact: async (req, res) => {
         try {
@@ -19,7 +21,7 @@ module.exports = {
                 errors["message"] = {message: "Message is required!"};
             }
 
-            if(Object.keys(errors).length !== 0) {
+            if (Object.keys(errors).length !== 0) {
                 return res.status(400).json({errors: errors})
             }
 
@@ -31,8 +33,21 @@ module.exports = {
             );
             const data = await response.json();
             if (data.success) {
-                // recaptcha verified, continue to send email
-                res.json({message: "Success!"});
+                transporter.sendMail({
+                    from: email,
+                    replyTo: email,
+                    to: process.env.ADMIN_EMAIL,
+                    subject: `New email from web - ${subject}`,
+                    text: message
+                })
+                    .then(info => {
+                        console.log(info);
+                        res.json({message: "Success!"})
+                    })
+                    .catch(err => {
+                        console.error(err);
+                        res.status(500).json(err);
+                    })
             } else {
                 res.status(500).json({message: "reCAPTCHA not verified! Please, try again!"});
             }
