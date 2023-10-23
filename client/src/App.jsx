@@ -1,4 +1,4 @@
-import {useState, useEffect} from "react";
+import {useState, useEffect, useRef} from "react";
 import "./App.css";
 import io from 'socket.io-client';
 import {BrowserRouter, Routes, Route} from "react-router-dom";
@@ -22,6 +22,7 @@ import "react-toastify/dist/ReactToastify.css";
 import ApplicationDetails from "./components/Company/ApplicationDetails.jsx";
 
 function App() {
+    const ref = useRef(null);
     const socket = io('http://127.0.0.1:8000',{ transports: ['websocket', 'polling', 'flashsocket'] });
 
     const [darkMode, setDarkMode] = useState(
@@ -41,7 +42,7 @@ function App() {
     }, [darkMode]);
 
     return (
-        <div className={(darkMode ? "dark" : "") + " overflow-y-auto h-screen"}>
+        <div className={(darkMode ? "dark" : "") + " overflow-y-auto h-screen"} ref={ref}>
             <div className="bg-main dark:bg-gray-900 min-h-full py-4">
                 <BrowserRouter>
                     <ToastContainer
@@ -150,7 +151,7 @@ function App() {
                                }>
                         </Route>
                     </Routes>
-                    <ScrollToTop />
+                    <ScrollToTop scrollRef={ref} />
                 </BrowserRouter>
             </div>
         </div>

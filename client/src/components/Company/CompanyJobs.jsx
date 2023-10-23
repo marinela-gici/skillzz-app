@@ -5,7 +5,6 @@ import defaultLogo from '../../assets/default-logo.svg';
 
 const CompanyJobs = () => {
     const [jobs, setJobs] = useState([]);
-    const [company, setCompany] = useState({});
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -18,17 +17,6 @@ const CompanyJobs = () => {
             .catch(err => console.log(err))
     }, []);
 
-    useEffect(() => {
-        axios
-            .get('http://localhost:8000/api/dashboard/profile', {withCredentials: true})
-            .then(res => {
-                setCompany(res.data);
-            })
-            .catch(err => {
-                console.log(err);
-            })
-    }, []);
-
     return (
         <>
             {jobs.length === 0 &&  <p className="text-xl text-red-600 font-bold">No jobs yet!</p>}
@@ -37,7 +25,7 @@ const CompanyJobs = () => {
                     <div key={index}
                          className="flex flex-wrap items-center container pt-4 border overflow-hidden hover:border-emerald-500 dark:hover:border-rose-400 dark:bg-gray-800 dark:text-white rounded-md my-8 bg-white">
                         <div className="w-full flex justify-center items-center md:w-1/5 mb-4">
-                            <img className='w-[100px]' src={company.logo ? (import.meta.env.VITE_IMAGES_BASE_URL+company.logo) : defaultLogo} />
+                            <img className='w-[100px]' src={job.company.logo ? (import.meta.env.VITE_IMAGES_BASE_URL+job.company.logo) : defaultLogo} />
                         </div>
 
                         <div className="w-full flex flex-col justify-center items-center md:w-1/5 mb-4">
@@ -76,11 +64,11 @@ const CompanyJobs = () => {
                                         <svg xmlns="http://www.w3.org/2000/svg"
                                              fill="none"
                                              viewBox="0 0 24 24"
-                                             stroke-width="1.5"
+                                             strokeWidth="1.5"
                                              stroke="currentColor"
-                                             class="w-4 h-4 me-2">
-                                            <path stroke-linecap="round"
-                                                  stroke-linejoin="round"
+                                             className="w-4 h-4 me-2">
+                                            <path strokeLinecap="round"
+                                                  strokeLinejoin="round"
                                                   d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m5.231 13.481L15 17.25m-4.5-15H5.625c-.621 0-1.125.504-1.125 1.125v16.5c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9zm3.75 11.625a2.625 2.625 0 11-5.25 0 2.625 2.625 0 015.25 0z" />
                                         </svg>
                                         View job

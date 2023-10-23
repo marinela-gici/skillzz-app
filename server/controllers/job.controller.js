@@ -13,14 +13,14 @@ module.exports = {
         const limit = request.query.limit ?? 10;
         const skip = request.query.skip ?? 0;
 
-        Job.find({company: request.user._id}).populate('applications').skip(skip).limit(limit).sort({createdAt: 'desc'})
+        Job.find({company: request.user._id}).populate('company').populate('applications').skip(skip).limit(limit).sort({createdAt: 'desc'})
             .then((jobs) => {
                 console.log(jobs);
                 response.json(jobs);
             })
             .catch((err) => {
                 console.log(err);
-                response.json(err);
+                response.status(400).json(err)
             });
     },
 
@@ -33,7 +33,7 @@ module.exports = {
             })
             .catch((err) => {
                 console.log(err);
-                response.json(err);
+                response.status(400).json(err)
             });
     },
 
@@ -50,10 +50,10 @@ module.exports = {
             .then((deleteConfirmation) => {
                 Application.deleteMany({job: request.params.id})
                     .then(res => console.log(res))
-
                 response.json(deleteConfirmation);
             })
-            .catch((err) => response.json(err));
+            .catch((err) => response.status(400).json(err)
+            );
     },
 
     getApplication: (request, response) => {
@@ -65,19 +65,24 @@ module.exports = {
                         console.log(application);
                         response.json(application);
                     })
-                    .catch(err => console.log(err));
+                    .catch(err => {
+                        console.log(err);
+                        response.status(400).json(err)
+                    });
             })
-            .catch(err => console.log(err));
+            .catch(err => {
+                console.log(err);
+                response.status(400).json(err)
+            });
     },
 
     getDashboard: (request, response) => {
-        Job.countDocuments({company: request.user._id}, function (err, count) {
-            if (err) {
-                console.log(err)
-            } else {
-                console.log("Count :", count)
-            }
-        });
+        Job.countDocuments({company: request.user._id})
+            .then(count => response.json(count))
+            .catch(err => {
+                console.log(err);
+                response.status(400).json(err)
+            })
     },
 
     getAllJobs: async (request, response, next) => {
@@ -114,8 +119,7 @@ module.exports = {
             })
             .catch((err) => {
                 console.log(err);
-                response.json(err);
+                response.status(400).json(err)
             });
     },
-
 };

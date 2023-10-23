@@ -7,8 +7,8 @@ import { useNavigate, Link } from "react-router-dom";
 
 const navigation = [
   { name: "Home", href: "/", current: true },
-  { name: "Post a Job", href: "#", current: false },
-  { name: "Contact", href: "#", current: false },
+  // { name: "Post a Job", href: "#", current: false },
+  // { name: "Contact", href: "#", current: false },
 ];
 
 const Navbar = (props) => {

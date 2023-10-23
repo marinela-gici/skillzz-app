@@ -55,10 +55,10 @@ const ApplicationDetails = () => {
                                             </p>
                                         </div>
                                         <div className="py-3 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-                                            <p class="text-sm font-medium text-gray-300">
+                                            <p className="text-sm font-medium text-gray-300">
                                                 Message
                                             </p>
-                                            <p class="mt-1 text-sm text-gray-900 dark:text-white sm:mt-0 sm:col-span-2">
+                                            <p className="mt-1 text-sm text-gray-900 dark:text-white sm:mt-0 sm:col-span-2">
                                                 {application.message}
                                             </p>
                                         </div>
