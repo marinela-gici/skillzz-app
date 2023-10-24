@@ -18,7 +18,6 @@ app.use(paginate.middleware(10, 50));
 
 // serve images from uploads directory
 app.use('/images', express.static(UPLOADS_DIR))
-require('dotenv').config();
 require('./config/mongoose.config');
 require('./routes/company.routes')(app);
 require('./routes/job.routes')(app);

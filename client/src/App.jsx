@@ -83,7 +83,7 @@ function App() {
                         <Route exact path="/jobs"
                                element={
                                    <PublicLayout darkMode={darkMode} toggleDarkMode={toggleDarkMode}>
-                                       <JobsList />
+                                       <JobsList socket={socket} />
                                    </PublicLayout>
                                }>
                         </Route>
