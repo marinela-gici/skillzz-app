@@ -5,7 +5,7 @@ import JobDetailsContent from "./JobDetailsContent";
 import Pagination from "./Pagination";
 import moment from "moment";
 
-const JobsList = () => {
+const JobsList = ({socket}) => {
     const PER_PAGE = 5;
 
     const [jobs, setJobs] = useState([]);
@@ -74,7 +74,7 @@ const JobsList = () => {
                 {activeJob && (
                     <div className="hidden md:block md:w-3/5 p-5">
                         <div className="sticky z-10 top-4 p-6 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 dark:text-white">
-                            <JobDetailsContent
+                            <JobDetailsContent socket={socket}
                                 onClick={() => setActiveJob(null)}
                                 value={
                                     <svg
